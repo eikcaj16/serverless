@@ -24,7 +24,7 @@ def lambda_handler(event=None, context=None):
     response = table.get_item(Key={"user_id": recipient})
     if "Item" in response.keys():
         item = response['Item']
-        if item["sendStatus"] == "sent":
+        if item["send_status"] == True:
             return
     else:
         return
@@ -62,7 +62,7 @@ def lambda_handler(event=None, context=None):
             Source=sender
         )
 
-        item["sendStatus"] = "sent"
+        item["send_status"] = True
         table.put_item(Item=item)
 
 
